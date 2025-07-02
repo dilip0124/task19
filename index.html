@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SQL Query Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e3f6f5;
+      color: #22223b;
+      padding: 32px;
+      margin: 0;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #0077b6;
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .box {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px 18px 14px 18px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px #b5ead7;
+      border-left: 5px solid #00b4d8;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: box-shadow 0.2s;
+    }
+    .box:hover {
+      box-shadow: 0 6px 24px #b5ead7;
+    }
+    h3 {
+      color: #00b4d8;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      font-size: 15px;
+      margin-top: 10px;
+      border: 1px solid #0077b6;
+      border-radius: 5px;
+      background-color: #f1f5f9;
+      color: #0077b6;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 8px;
+    }
+    button {
+      padding: 8px 18px;
+      margin-top: 10px;
+      background-color: #0077b6;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+      font-size: 1em;
+      font-weight: bold;
+      transition: background 0.2s, color 0.2s;
+    }
+    button:hover {
+      background-color: #00b4d8;
+      color: #fff;
+    }
+    .output {
+      margin-top: 12px;
+      background-color: #caf0f8;
+      padding: 10px;
+      border-radius: 5px;
+      color: #0077b6;
+      font-family: monospace;
+      font-weight: bold;
+      border-left: 4px solid #00b4d8;
+      box-shadow: 0 1px 4px #b5ead7;
+    }
+    @media (max-width: 600px) {
+      .box {
+        padding: 8px 2px 6px 4px;
+        max-width: 98vw;
+      }
+      h2 {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>💻 SQL Query Viewer & Simulator</h2>
+
+  <div class="box">
+    <h3>1. Add column "no_of_pages" to book_records</h3>
+    <input type="text" id="query1" value="ALTER TABLE book_records ADD no_of_pages INT;" disabled />
+    <button onclick="runQuery(1)">Run</button>
+    <div class="output" id="output1"></div>
+  </div>
+
+  <div class="box">
+    <h3>2. Add primary key to unique column</h3>
+    <input type="text" id="query2" value="ALTER TABLE book_records ADD PRIMARY KEY (Book_Library_No);" disabled />
+    <button onclick="runQuery(2)">Run</button>
+    <div class="output" id="output2"></div>
+  </div>
+
+  <div class="box">
+    <h3>3. Insert data into book_records</h3>
+    <input type="text" id="query3" value="INSERT INTO book_records (Book_Library_No, Book_Name, Author_Name, Book_Edition, Price, no_of_pages) VALUES (101, 'The Alchemist', 'Paulo Coelho', '1st', 350.00, 197);" disabled />
+    <button onclick="runQuery(3)">Run</button>
+    <div class="output" id="output3"></div>
+  </div>
+
+  <script>
+    function runQuery(num) {
+      const query = document.getElementById("query" + num).value.toLowerCase();
+      let message = "";
+
+      if (query.includes("alter table") && query.includes("add no_of_pages")) {
+        message = "✅ Column <b>no_of_pages</b> added to <b>book_records</b> table.";
+      } else if (query.includes("add primary key")) {
+        message = "✅ <b>Primary key</b> set on <b>Book_Library_No</b>.";
+      } else if (query.includes("insert into")) {
+        message = "✅ 1 row inserted into <b>book_records</b>.";
+      } else {
+        message = "⚠️ Unknown or unsupported query.";
+      }
+
+      document.getElementById("output" + num).innerHTML = message;
+    }
+  </script>
+
+</body>
+</html>
